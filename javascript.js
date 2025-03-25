@@ -53,7 +53,6 @@ function startTest() {
     startTimer();
     loadQuestion();
 }
-
 function startTimer() {
     timerRunning = true;
     timerInterval = setInterval(() => {
@@ -65,12 +64,14 @@ function startTimer() {
         if (timeLeft > 0) {
             timeLeft--;
         } else {
-            clearInterval(timerInterval); // Stop the timer
+            clearInterval(timerInterval); // ✅ Stop the timer first
             timerRunning = false;
-            submitTest(); // Auto-submit when timer reaches 0
+            submitTest(); // ✅ Now submit the test
         }
     }, 1000);
 }
+
+
 
 function generateQuestions(num, maxInt) {
     questions = [];
