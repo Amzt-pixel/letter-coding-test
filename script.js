@@ -4,35 +4,13 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let attempted = 0;
 let selectedAnswer = null;
-let timeLeft;
-let timerRunning = false;
-let extraTime = 0;
 let startTime;
-let isTestMode = true; // Default mode: Test Mode
-let modeSaved = false; // Ensures mode is saved before starting
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM"; // Custom looping system
 
-// Toggle Mode Saving
-document.getElementById("saveMode").addEventListener("click", function () {
-    isTestMode = document.getElementById("modeToggle").checked;
-    modeSaved = true;
-
-    document.getElementById("setMinutes").disabled = !isTestMode;
-    document.getElementById("setSeconds").disabled = !isTestMode;
-});
-
-// Start Test
 function startTest() {
-    if (!modeSaved) {
-        alert("Please save the mode before starting the test.");
-        return;
-    }
-
     let numQuestions = document.getElementById("numQuestions").value.trim();
     let maxInt = document.getElementById("maxInt").value.trim();
-    let setMinutes = document.getElementById("setMinutes").value.trim();
-    let setSeconds = document.getElementById("setSeconds").value.trim();
 
     if (numQuestions === "" || maxInt === "") {
         alert("Enter both the number of questions and maximum number!");
@@ -47,100 +25,39 @@ function startTest() {
         return;
     }
 
-    if (isTestMode && setMinutes === "" && setSeconds === "") {
-        alert("Enter at least Minutes or Seconds for the timer!");
-        return;
-    }
+    startTime = new Date(); // Start tracking test duration
+    setInterval(updateRunningClock, 1000); // Start running clock update
 
-    let minutes = setMinutes === "" ? 0 : parseInt(setMinutes);
-    let seconds = setSeconds === "" ? 0 : parseInt(setSeconds);
-
-    if (isNaN(minutes) || minutes < 0 || minutes > 30 || isNaN(seconds) || seconds < 0 || seconds > 59) {
-        alert("Enter valid values for time!");
-        return;
-    }
-
-    timeLeft = isTestMode ? minutes * 60 + seconds : 0;
-    startTime = new Date(); // Start hidden clock
     generateQuestions(numQuestions, maxInt);
 
     document.getElementById("setup").style.display = "none";
     document.getElementById("test").style.display = "block";
 
-    if (isTestMode) {
-        startTimer();
-    } else {
-        showClock();
-    }
-
     loadQuestion();
 }
 
-// Timer (Only for Test Mode)
-function startTimer() {
-    timerRunning = true;
-    let timerInterval = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        document.getElementById("timeLeft").innerText =
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-        if (timeLeft > 0) {
-            timeLeft--;
-        } else {
-            if (timerRunning) {
-                document.getElementById("timeUpMessage").innerText =
-                    `Time up! You attempted ${attempted} questions till now. Keep practicing!`;
-                document.getElementById("timeUpMessage").style.color = "navy";
-                timerRunning = false;
-                submitTest();
-            }
-            clearInterval(timerInterval);
-        }
-    }, 1000);
-}
-
-// Clock (Only for Practice Mode)
-function showClock() {
-    setInterval(() => {
-        let currentTime = new Date();
-        let elapsedTime = Math.floor((currentTime - startTime) / 1000);
+// Function to continuously update the running clock
+function updateRunningClock() {
+    if (startTime) {
+        let elapsedTime = Math.floor((new Date() - startTime) / 1000);
         let minutes = Math.floor(elapsedTime / 60);
         let seconds = elapsedTime % 60;
-        document.getElementById("clock").innerText =
-            `Elapsed Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-    }, 1000);
+        document.getElementById("runningClock").innerText =
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 }
 
-// Generate Questions
 function generateQuestions(num, maxInt) {
     questions = [];
     for (let i = 0; i < num; i++) {
         let letter = alphabet[Math.floor(Math.random() * 26)];
         let num = Math.floor(Math.random() * maxInt) + 1;
-        let isAddition = Math.random() < 0.5;
+        let answer = alphabet[alphabet.indexOf(letter) - num];
 
-        let answer;
-        if (isAddition) {
-            answer = alphabet[alphabet.indexOf(letter) + num];
-            questions.push({ question: `${letter} + ${num} = ?`, answer });
-        } else {
-            let letterIndex = alphabet.indexOf(letter);
-            let possibleAnswers = [];
-            if (letterIndex - num >= 0) possibleAnswers.push(alphabet[letterIndex - num]);
-            if (letterIndex >= 26 && letterIndex - num >= 26 - maxInt) possibleAnswers.push(alphabet[letterIndex - num + 26]);
-
-            if (possibleAnswers.length > 0) {
-                answer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-                questions.push({ question: `${letter} - ${num} = ?`, answer });
-            } else {
-                i--; // Ensure valid question generation
-            }
-        }
+        questions.push({ question: `${letter} - ${num} = ?`, answer });
     }
 }
 
-// Load Question
 function loadQuestion() {
     let q = questions[currentQuestion];
     document.getElementById("questionNumber").innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
@@ -162,7 +79,6 @@ function loadQuestion() {
     document.getElementById("nextButton").disabled = true;
 }
 
-// Generate Wrong Options
 function generateWrongOptions(correct) {
     let options = [];
     while (options.length < 3) {
@@ -172,7 +88,6 @@ function generateWrongOptions(correct) {
     return options;
 }
 
-// Select Answer
 function selectOption(button, answer) {
     document.querySelectorAll("#options button").forEach(btn => {
         btn.classList.remove("selected");
@@ -181,7 +96,15 @@ function selectOption(button, answer) {
     selectedAnswer = answer;
 }
 
-// Save Answer
+function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+    } else {
+        submitTest();
+    }
+}
+
 function saveAnswer() {
     if (selectedAnswer === null) return;
 
@@ -189,7 +112,7 @@ function saveAnswer() {
     let correctAnswer = questions[currentQuestion].answer;
     let feedback = document.getElementById("feedback");
 
-    if (selectedAnswer === correctAnswer || (Array.isArray(correctAnswer) && correctAnswer.includes(selectedAnswer))) {
+    if (selectedAnswer === correctAnswer) {
         correctAnswers++;
         feedback.innerText = "Very Good! Your answer is correct!";
         feedback.style.color = "green";
@@ -208,30 +131,9 @@ function saveAnswer() {
     if (attempted === questions.length) submitTest();
 }
 
-// Next Question
-function nextQuestion() {
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        loadQuestion();
-    } else {
-        submitTest();
-    }
-}
-
-// Submit Test
 function submitTest() {
     document.getElementById("test").style.display = "none";
     document.getElementById("result").style.display = "block";
-
-    let endTime = new Date();
-    let totalTime = Math.floor((endTime - startTime) / 1000);
-    let minutesTaken = Math.floor(totalTime / 60);
-    let secondsTaken = totalTime % 60;
-
-    document.getElementById("score").innerText = `Correct: ${correctAnswers}`;
-    document.getElementById("wrong").innerText = `Wrong: ${wrongAnswers}`;
-    document.getElementById("unattempted").innerText = `Unattempted: ${questions.length - attempted}`;
-    document.getElementById("timeTaken").innerText = `Time Taken: ${minutesTaken}m ${secondsTaken}s`;
 
     let endTime = new Date();
     let totalTime = Math.floor((endTime - startTime) / 1000);
