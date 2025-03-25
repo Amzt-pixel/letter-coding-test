@@ -67,10 +67,11 @@ function startTimer() {
         } else {
             clearInterval(timerInterval); // Stop the timer
             timerRunning = false;
-            submitTest(); // Auto-submit when timer ends
+            setTimeout(submitTest, 100); // Ensure test submission happens immediately
         }
     }, 1000);
 }
+
 
 
 function generateQuestions(num, maxInt) {
