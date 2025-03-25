@@ -128,6 +128,14 @@ function saveAnswer() {
 
     if (attempted === questions.length) submitTest();
 }
+function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;  // Move to the next question
+        loadQuestion();  // Load the new question
+    } else {
+        submitTest();  // If last question, end the test
+    }
+}
 
 function submitTest() {
     document.getElementById("test").style.display = "none";
