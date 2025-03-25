@@ -59,7 +59,7 @@ function startTimer() {
     timerInterval = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        document.getElementById("timeLeft").innerText =
+        document.getElementById("timer").innerText = 
             `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
         if (timeLeft > 0) {
@@ -67,12 +67,10 @@ function startTimer() {
         } else {
             clearInterval(timerInterval); // Stop the timer
             timerRunning = false;
-            setTimeout(submitTest, 100); // Ensure test submission happens immediately
+            submitTest(); // Auto-submit when timer reaches 0
         }
     }, 1000);
 }
-
-
 
 function generateQuestions(num, maxInt) {
     questions = [];
