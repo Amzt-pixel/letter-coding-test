@@ -51,21 +51,25 @@ function generateQuestions(num, maxInt) {
     questions = [];
     for (let i = 0; i < num; i++) {
         let letter = alphabet[Math.floor(Math.random() * 26)];
-        let letterIndex = alphabet.indexOf(letter);
         let num = Math.floor(Math.random() * maxInt) + 1;
-        
-        let result1 = letterIndex - num >= 0 ? letterIndex - num : null;
-        let result2 = letterIndex >= 26 && letterIndex - num >= 26 - maxInt ? letterIndex - num + 26 : null;
-        
-        let possibleAnswers = [];
-        if (result1 !== null) possibleAnswers.push(alphabet[result1]);
-        if (result2 !== null) possibleAnswers.push(alphabet[result2]);
+        let isAddition = Math.random() < 0.5;
 
-        if (possibleAnswers.length > 0) {
-            let answer = possibleAnswers.length === 1 ? possibleAnswers[0] : possibleAnswers;
-            questions.push({ question: `${letter} - ${num} = ?`, answer });
+        let answer;
+        if (isAddition) {
+            answer = alphabet[alphabet.indexOf(letter) + num];
+            questions.push({ question: `${letter} + ${num} = ?`, answer });
         } else {
-            i--; // Ensure valid question generation
+            let letterIndex = alphabet.indexOf(letter);
+            let possibleAnswers = [];
+            if (letterIndex - num >= 0) possibleAnswers.push(alphabet[letterIndex - num]);
+            if (letterIndex >= 26 && letterIndex - num >= 26 - maxInt) possibleAnswers.push(alphabet[letterIndex - num + 26]);
+
+            if (possibleAnswers.length > 0) {
+                answer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+                questions.push({ question: `${letter} - ${num} = ?`, answer });
+            } else {
+                i--; // Ensure valid question generation
+            }
         }
     }
 }
