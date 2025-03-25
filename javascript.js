@@ -72,6 +72,7 @@ function startTimer() {
     }, 1000);
 }
 
+
 function generateQuestions(num, maxInt) {
     questions = [];
     for (let i = 0; i < num; i++) {
