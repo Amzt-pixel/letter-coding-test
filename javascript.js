@@ -6,8 +6,8 @@ let attempted = 0;
 let selectedAnswer = null;
 let timeLeft;
 let timerRunning = false;
-let extraTime = 0;
 let startTime;
+let timerInterval; // Global variable for timer control
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM"; // Custom looping system
 
@@ -17,7 +17,6 @@ function startTest() {
     let setMinutes = document.getElementById("setMinutes").value.trim();
     let setSeconds = document.getElementById("setSeconds").value.trim();
 
-    // Ensure Number of Questions & Maximum Subtraction Integer are entered
     if (numQuestions === "" || maxInt === "") {
         alert("Enter both the number of questions and maximum number!");
         return;
@@ -31,7 +30,6 @@ function startTest() {
         return;
     }
 
-    // Ensure at least one of 'Minutes' or 'Seconds' is provided
     if (setMinutes === "" && setSeconds === "") {
         alert("Enter at least Minutes or Seconds for the timer!");
         return;
@@ -57,9 +55,8 @@ function startTest() {
 }
 
 function startTimer() {
-function startTimer() {
     timerRunning = true;
-    let timerInterval = setInterval(() => {
+    timerInterval = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
         document.getElementById("timeLeft").innerText =
@@ -70,7 +67,7 @@ function startTimer() {
         } else {
             clearInterval(timerInterval); // Stop the timer
             timerRunning = false;
-            submitTest(); // Automatically end the test
+            submitTest(); // Auto-submit when timer ends
         }
     }, 1000);
 }
@@ -123,7 +120,6 @@ function loadQuestion() {
     document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
 
-
 function generateWrongOptions(correct) {
     let options = [];
     while (options.length < 3) {
@@ -141,7 +137,6 @@ function selectOption(button, answer) {
     selectedAnswer = answer;
 }
 
-
 function nextQuestion() {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
@@ -150,6 +145,7 @@ function nextQuestion() {
         submitTest();
     }
 }
+
 function saveAnswer() {
     if (selectedAnswer === null) return;
 
@@ -177,6 +173,9 @@ function saveAnswer() {
 }
 
 function submitTest() {
+    console.log("Test submitted"); // Debugging log
+    clearInterval(timerInterval); // Stop timer to avoid further execution
+
     document.getElementById("test").style.display = "none";
     document.getElementById("result").style.display = "block";
 
@@ -189,4 +188,4 @@ function submitTest() {
     document.getElementById("wrong").innerText = `Wrong: ${wrongAnswers}`;
     document.getElementById("unattempted").innerText = `Unattempted: ${questions.length - attempted}`;
     document.getElementById("timeTaken").innerText = `Time Taken: ${minutesTaken}m ${secondsTaken}s`;
-               }
+}
