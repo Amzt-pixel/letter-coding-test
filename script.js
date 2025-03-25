@@ -232,4 +232,14 @@ function submitTest() {
     document.getElementById("wrong").innerText = `Wrong: ${wrongAnswers}`;
     document.getElementById("unattempted").innerText = `Unattempted: ${questions.length - attempted}`;
     document.getElementById("timeTaken").innerText = `Time Taken: ${minutesTaken}m ${secondsTaken}s`;
+
+    let endTime = new Date();
+    let totalTime = Math.floor((endTime - startTime) / 1000);
+    let minutesTaken = Math.floor(totalTime / 60);
+    let secondsTaken = totalTime % 60;
+
+    document.getElementById("score").innerText = `Correct: ${correctAnswers}`;
+    document.getElementById("wrong").innerText = `Wrong: ${wrongAnswers}`;
+    document.getElementById("unattempted").innerText = `Unattempted: ${questions.length - attempted}`;
+    document.getElementById("timeTaken").innerText = `Time Taken: ${minutesTaken}m ${secondsTaken}s`;
 }
