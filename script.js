@@ -25,36 +25,48 @@ function startTest() {
         return;
     }
 
-    startTime = new Date(); // Start tracking test duration
-    setInterval(updateRunningClock, 1000); // Start running clock update
-
+    startTime = new Date(); // Start the hidden clock
     generateQuestions(numQuestions, maxInt);
 
     document.getElementById("setup").style.display = "none";
     document.getElementById("test").style.display = "block";
 
+    updateClock(); // Start showing the running clock
+    setInterval(updateClock, 1000); // Update every second
+
     loadQuestion();
 }
 
-// Function to continuously update the running clock
-function updateRunningClock() {
-    if (startTime) {
-        let elapsedTime = Math.floor((new Date() - startTime) / 1000);
-        let minutes = Math.floor(elapsedTime / 60);
-        let seconds = elapsedTime % 60;
-        document.getElementById("runningClock").innerText =
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
+function updateClock() {
+    let now = new Date();
+    let elapsed = Math.floor((now - startTime) / 1000);
+    let minutes = Math.floor(elapsed / 60);
+    let seconds = elapsed % 60;
+    
+    document.getElementById("runningClock").innerText =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function generateQuestions(num, maxInt) {
     questions = [];
     for (let i = 0; i < num; i++) {
         let letter = alphabet[Math.floor(Math.random() * 26)];
+        let letterIndex = alphabet.indexOf(letter);
         let num = Math.floor(Math.random() * maxInt) + 1;
-        let answer = alphabet[alphabet.indexOf(letter) - num];
+        
+        let result1 = letterIndex - num >= 0 ? letterIndex - num : null;
+        let result2 = letterIndex >= 26 && letterIndex - num >= 26 - maxInt ? letterIndex - num + 26 : null;
+        
+        let possibleAnswers = [];
+        if (result1 !== null) possibleAnswers.push(alphabet[result1]);
+        if (result2 !== null) possibleAnswers.push(alphabet[result2]);
 
-        questions.push({ question: `${letter} - ${num} = ?`, answer });
+        if (possibleAnswers.length > 0) {
+            let answer = possibleAnswers.length === 1 ? possibleAnswers[0] : possibleAnswers;
+            questions.push({ question: `${letter} - ${num} = ?`, answer });
+        } else {
+            i--; // Ensure valid question generation
+        }
     }
 }
 
@@ -89,20 +101,9 @@ function generateWrongOptions(correct) {
 }
 
 function selectOption(button, answer) {
-    document.querySelectorAll("#options button").forEach(btn => {
-        btn.classList.remove("selected");
-    });
+    document.querySelectorAll("#options button").forEach(btn => btn.classList.remove("selected"));
     button.classList.add("selected");
     selectedAnswer = answer;
-}
-
-function nextQuestion() {
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        loadQuestion();
-    } else {
-        submitTest();
-    }
 }
 
 function saveAnswer() {
@@ -112,7 +113,7 @@ function saveAnswer() {
     let correctAnswer = questions[currentQuestion].answer;
     let feedback = document.getElementById("feedback");
 
-    if (selectedAnswer === correctAnswer) {
+    if (selectedAnswer === correctAnswer || (Array.isArray(correctAnswer) && correctAnswer.includes(selectedAnswer))) {
         correctAnswers++;
         feedback.innerText = "Very Good! Your answer is correct!";
         feedback.style.color = "green";
@@ -122,10 +123,7 @@ function saveAnswer() {
         feedback.style.color = "red";
     }
 
-    document.querySelectorAll("#options button").forEach(btn => {
-        btn.onclick = null;
-    });
-
+    document.querySelectorAll("#options button").forEach(btn => (btn.onclick = null));
     document.getElementById("nextButton").disabled = false;
 
     if (attempted === questions.length) submitTest();
