@@ -44,6 +44,13 @@ p {
     margin-bottom: 20px;
     border-radius: 10px;
 }
+.question-text {
+    border: 2px solid #000;  /* Same as question-box */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Light background for contrast */
+}
 
 .question-header {
     display: flex;
