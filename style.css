@@ -28,16 +28,16 @@ h2 {
     color: #333;
 }
 h3 {
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 20px;
-    color: #318d75;
+    color: #138d75;
 }
 
 label {
     font-size: 16px;
     display: block;
     margin-top: 15px;
-    color: #e74c3c;
+    color: #333;
     font-weight: bold;
     text-align: left;
 }
