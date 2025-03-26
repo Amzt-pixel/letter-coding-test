@@ -13,20 +13,18 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM"; // Custom looping sy
 
 function startTest() {
     let numQuestions = document.getElementById("numQuestions").value.trim();
-    let maxInt = document.getElementById("maxInt").value.trim();
     let setMinutes = document.getElementById("setMinutes").value.trim();
     let setSeconds = document.getElementById("setSeconds").value.trim();
 
-    if (numQuestions === "" || maxInt === "") {
-        alert("Enter both the number of questions and maximum number!");
+    if (numQuestions === "") {
+        alert("Enter the number of questions!");
         return;
     }
 
     numQuestions = parseInt(numQuestions);
-    maxInt = parseInt(maxInt);
 
-    if (isNaN(numQuestions) || numQuestions < 1 || isNaN(maxInt) || maxInt < 1 || maxInt > 13) {
-        alert("Enter valid values for number of questions and max number limit!");
+    if (isNaN(numQuestions) || numQuestions < 1) {
+        alert("Enter a valid number of questions!");
         return;
     }
 
@@ -45,7 +43,7 @@ function startTest() {
 
     timeLeft = minutes * 60 + seconds;
     startTime = new Date(); // Start hidden clock
-    generateQuestions(numQuestions, maxInt);
+    generateQuestions(numQuestions);
 
     document.getElementById("setup").style.display = "none";
     document.getElementById("test").style.display = "block";
@@ -53,6 +51,7 @@ function startTest() {
     startTimer();
     loadQuestion();
 }
+
 function startTimer() {
     timerRunning = true;
     timerInterval = setInterval(() => {
@@ -64,13 +63,12 @@ function startTimer() {
         if (timeLeft > 0) {
             timeLeft--;
         } else {
-            clearInterval(timerInterval); // ✅ Stop the timer first
+            clearInterval(timerInterval);
             timerRunning = false;
-            submitTest(); // ✅ Now submit the test
+            submitTest();
         }
     }, 1000);
 }
-
 
 function generateQuestions(num) {
     questions = [];
@@ -125,7 +123,6 @@ function loadQuestion() {
     selectedAnswer = null;
     document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
-
 
 function generateWrongOptions(correct) {
     let options = new Set();
