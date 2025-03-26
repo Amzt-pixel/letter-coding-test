@@ -44,6 +44,7 @@ function updateClock() {
     document.getElementById("runningClock").innerText =
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
+
 function generateQuestions(num) {
     questions = [];
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -77,7 +78,6 @@ function generateQuestions(num) {
         questions.push({ question: questionText, answer: correctAnswer, options: Array.from(options) });
     }
 }
-
 
 function loadQuestion() {
     let q = questions[currentQuestion];
