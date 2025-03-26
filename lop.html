@@ -9,6 +9,8 @@
 <body>
     <div class="container" id="setup">
         <h1>MCQ Test Setup</h1>
+        <h4>Position of Letters</h4>
+        <h4>Practice</h4>
         <label>Number of Questions:</label>
         <input type="text" id="numQuestions"><br>
 
@@ -16,11 +18,12 @@
         <button class="start-btn" onclick="startTest()">Start</button>
     </div>
 
-    <div class="tittle-box">
-        <h4>ABCD</h4>
-        <h4>XYZ</h4>
-    </div>
+    
     <div class="container" id="test" style="display:none;">
+        <div class="tittle-box">
+        <h4>Position of Letters</h4>
+        <h4>Practice</h4>
+        </div>
         <div class="question-box">
             <div class="question-header">
                 <span id="questionNumber"></span>
@@ -43,6 +46,8 @@
 
     <div class="container" id="result" style="display:none;">
         <h1>Test Complete</h1>
+        <h4>Position of Letters</h4>
+        <h4>Practice</h4>
         <p id="score"></p>
         <p id="wrong"></p>
         <p id="unattempted"></p>
