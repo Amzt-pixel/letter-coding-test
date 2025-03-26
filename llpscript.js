@@ -111,8 +111,10 @@ function loadQuestion() {
 function generateWrongOptions(correct) {
     let options = [];
     while (options.length < 3) {
-        let rand = alphabet[Math.floor(Math.random() * 26)];
-        if (!options.includes(rand) && rand !== correct) options.push(rand);
+        let rand = Math.floor(Math.random() * 20) - 13; // Random value between -13 and 20
+        if (!options.includes(rand) && ![correct].flat().includes(rand)) {
+            options.push(rand);
+        }
     }
     return options;
 }
