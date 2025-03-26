@@ -208,7 +208,7 @@ input {
         font-size: 18px;
     }
     .question-header  {
-        font-size: 18px; /* Reduce size on mobile */
+        font-size: 16px; /* Reduce size on mobile */
     }
     #feedback {
         font-size: 24px;
