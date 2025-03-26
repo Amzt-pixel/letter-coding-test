@@ -50,14 +50,14 @@ p {
 }
 .question-box {
     position: relative;
-    border: 2px solid #000;
+    border: 2px solid #004d99;
     padding: 15px; /* Reduced padding */
     margin-bottom: 20px;
     border-radius: 10px;
 }
 
 .question-text {
-    border: 2px solid #000;  
+    border: 2px solid #004d99;  
     /*margin: 15px auto;*/
     border-radius: 8px;
     /*width: 85%; /* Slightly narrower */
@@ -122,7 +122,7 @@ input {
     padding: 16px; /* Slightly reduced */
     margin: 15px auto;
     background: #ffffff;
-    border: 1px solid #004d99;
+    border: 2px solid #004d99;
     font-size: 24px; /* Reduced from 26px */
     color: #000000;
     border-radius: 8px;
