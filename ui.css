@@ -43,7 +43,7 @@ p {
     background: white;
     width: 70%; /* Reduced width for all devices */
     max-width: 600px; /* Ensures it doesn't get too large on bigger screens */
-    margin: 50px auto;
+    /*margin: 50px auto;*/
     padding: 30px; /* Slightly reduced padding */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
