@@ -33,9 +33,7 @@ function startTest() {
         return;
     }
     if (minutes === 0 && seconds === 0) {
-            alert("Minutes and Seconds cannot both be zero!");
-            return;
-    }
+    
     let minutes = setMinutes === "" ? 0 : parseInt(setMinutes);
     let seconds = setSeconds === "" ? 0 : parseInt(setSeconds);
 
