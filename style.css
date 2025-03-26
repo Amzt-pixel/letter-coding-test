@@ -70,14 +70,14 @@ button {
     font-weight: bold;
     border: none;
     border-radius: 6px;
-    background-color: #007bff;
+    background-color: #004d99;
     color: white;
     cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0073eb;
 }
 
 /* Mobile Adjustments */
