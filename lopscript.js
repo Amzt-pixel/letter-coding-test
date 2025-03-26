@@ -101,13 +101,25 @@ function loadQuestion() {
 }
 
 function generateWrongOptions(correct) {
-    let options = [];
-    while (options.length < 3) {
-        let rand = alphabet[Math.floor(Math.random() * 26)];
-        if (!options.includes(rand) && rand !== correct) options.push(rand);
+    let options = new Set();
+
+    if (typeof correct === "number") {
+        // Generate wrong options as numbers (1-26)
+        while (options.size < 3) {
+            let rand = Math.floor(Math.random() * 26) + 1;
+            if (rand !== correct) options.add(rand);
+        }
+    } else {
+        // Generate wrong options as letters (A-Z)
+        while (options.size < 3) {
+            let rand = alphabet[Math.floor(Math.random() * 26)];
+            if (rand !== correct) options.add(rand);
+        }
     }
-    return options;
+
+    return Array.from(options);
 }
+
 
 function selectOption(button, answer) {
     document.querySelectorAll("#options button").forEach(btn => btn.classList.remove("selected"));
