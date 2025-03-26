@@ -9,6 +9,9 @@
 <body>
     <div class="container" id="setup">
         <h1>MCQ Test Setup</h1>
+      
+    <h4>Exam Mode : Distance from Letter (Practice) </h4>
+        
         <label>Number of Questions:</label>
         <input type="text" id="numQuestions"><br>
         
@@ -19,7 +22,11 @@
         <button class="start-btn" onclick="startTest()">Start</button>
     </div>
 
-    <div class="container" id="test" style="display:none;">
+    <div id="test" style="display:none;">
+        <div class="tittle-box">
+    <h4>Exam Mode : Distance from Letter (Practice) </h4>
+        </div>   
+        <div class="container">
         <div class="question-box">
             <div class="question-header">
                 <span id="questionNumber"></span>
@@ -29,6 +36,7 @@
             <h2 id="question"></h2>
             </div>
             <div id="options"></div>
+        </div>
         </div>
 
         <div class="buttons-container">
@@ -42,13 +50,15 @@
 
     <div class="container" id="result" style="display:none;">
         <h1>Test Complete</h1>
+    <h4>Exam Mode : Distance from Letter (Practice) </h4>
+        
         <p id="score"></p>
         <p id="wrong"></p>
         <p id="unattempted"></p>
         <p id="timeTaken"></p>
 
         <button class="home-btn" onclick="location.href='index.html'">Home</button>
-        <button class="restart-btn" onclick="restartTest()">Restart</button>
+        <button class="restart-btn" onclick="location.href='lnp.html'">Restart</button>
     </div>
 
     <script src="lnpscript.js"></script>
