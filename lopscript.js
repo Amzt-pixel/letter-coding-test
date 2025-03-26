@@ -47,7 +47,6 @@ function updateClock() {
 
 function generateQuestions(num) {
     questions = [];
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     for (let i = 0; i < num; i++) {
         let isLetterToPosition = Math.random() < 0.5; // Randomly select question type
@@ -65,11 +64,11 @@ function generateQuestions(num) {
             }
         } else {
             // Position-to-Letter question
-            correctAnswer = Math.floor(Math.random() * 26) + 1; // Random position (1-26)
-            questionText = `Which letter is at position ${correctAnswer}?`;
+            let position = Math.floor(Math.random() * 26) + 1; // Random position (1-26)
+            correctAnswer = alphabet[position - 1]; // Store letter instead of number
+            questionText = `Which letter is at position ${position}?`;
 
-            let correctLetter = alphabet[correctAnswer - 1];
-            options.add(correctLetter);
+            options.add(correctAnswer);
             while (options.size < 4) {
                 options.add(alphabet[Math.floor(Math.random() * 26)]); // Random letters (A-Z)
             }
@@ -79,6 +78,7 @@ function generateQuestions(num) {
     }
 }
 
+  
 function loadQuestion() {
     let q = questions[currentQuestion];
     document.getElementById("questionNumber").innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
