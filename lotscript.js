@@ -72,31 +72,36 @@ function startTimer() {
 }
 
 
-
-function generateQuestions(num, maxInt) {
+function generateQuestions(num) {
     questions = [];
+
     for (let i = 0; i < num; i++) {
-        let letter = alphabet[Math.floor(Math.random() * 26)];
-        let num = Math.floor(Math.random() * maxInt) + 1;
-        let isAddition = Math.random() < 0.5;
+        let isLetterToPosition = Math.random() < 0.5; // Randomly select question type
+        let correctAnswer, questionText, options = new Set();
 
-        let answer;
-        if (isAddition) {
-            answer = alphabet[alphabet.indexOf(letter) + num];
-            questions.push({ question: `${letter} + ${num} = ?`, answer });
+        if (isLetterToPosition) {
+            // Letter-to-Position question
+            let letter = alphabet[Math.floor(Math.random() * 26)];
+            correctAnswer = alphabet.indexOf(letter) + 1; // Get position (1-26)
+            questionText = `What is the position of '${letter}'?`;
+
+            options.add(correctAnswer);
+            while (options.size < 4) {
+                options.add(Math.floor(Math.random() * 26) + 1); // Random numbers (1-26)
+            }
         } else {
-            let letterIndex = alphabet.indexOf(letter);
-            let possibleAnswers = [];
-            if (letterIndex - num >= 0) possibleAnswers.push(alphabet[letterIndex - num]);
-            if (letterIndex >= 26 && letterIndex - num >= 26 - maxInt) possibleAnswers.push(alphabet[letterIndex - num + 26]);
+            // Position-to-Letter question
+            let position = Math.floor(Math.random() * 26) + 1; // Random position (1-26)
+            correctAnswer = alphabet[position - 1]; // Store letter instead of number
+            questionText = `Which letter is at position ${position}?`;
 
-            if (possibleAnswers.length > 0) {
-                answer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-                questions.push({ question: `${letter} - ${num} = ?`, answer });
-            } else {
-                i--; // Ensure valid question generation
+            options.add(correctAnswer);
+            while (options.size < 4) {
+                options.add(alphabet[Math.floor(Math.random() * 26)]); // Random letters (A-Z)
             }
         }
+
+        questions.push({ question: questionText, answer: correctAnswer, options: Array.from(options) });
     }
 }
 
