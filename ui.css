@@ -37,7 +37,17 @@ h4 {
 p {
     font-size: 22px; /* Reduced from 24px */
 }
-
+.tittle-box {
+    width: 60%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: white;
+    border: 2px solid black;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
 .question-box {
     position: relative;
     border: 2px solid #000;
@@ -166,6 +176,10 @@ input {
     .container {
         width: 85%; /* More compact on mobile */
         padding: 20px;
+    }
+    .tittle-box {
+        width: 85%;
+        padding: 10px;
     }
 
     .question-box {
