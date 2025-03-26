@@ -41,7 +41,7 @@ p {
     text-align: center;
     font-weight: bold;
     background: white;
-    width: 60%; /* Reduced width for all devices */
+    width: 70%; /* Reduced width for all devices */
     max-width: 600px; /* Ensures it doesn't get too large on bigger screens */
     margin: 50px auto;
     padding: 30px; /* Slightly reduced padding */
