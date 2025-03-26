@@ -210,6 +210,9 @@ input {
     .question-header  {
         font-size: 16px; /* Reduce size on mobile */
     }
+    #timer {
+    font-size: 16px; /* Slightly reduced */
+    }
     #feedback {
         font-size: 24px;
         margin-top: 10px;
