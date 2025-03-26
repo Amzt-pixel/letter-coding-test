@@ -193,7 +193,13 @@ input {
     p {
         font-size: 18px;
     }
+    .question-header #questionNumber {
+        font-size: 12px; /* Reduce size on mobile */
+    }
 
+    .question-header #runningClock {
+        font-size: 12px; /* Reduce size on mobile */
+    }
     button {
         padding: 12px 20px;
         font-size: 18px;
