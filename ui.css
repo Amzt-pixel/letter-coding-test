@@ -52,7 +52,7 @@ p {
     border-radius: 8px;
     /*width: 85%; /* Slightly narrower */
     text-align: center;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     display: block;
     width: calc(100% - 30px); /* Adjust width to fit within the question box */
     max-width: 100%; /* Prevent overflow */
