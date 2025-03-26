@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Selection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome</h1>
+        <h3>Choose Your MCQ</h3>
+
+        <label for="questionType">Question Type:</label>
+        <select id="questionType">
+            <option value="letter-number">Letter-Number</option>
+            <option value="letter-letter">Letter-Letter</option>
+            <option value="letter-or-number">Letter or Number</option>
+        </select>
+
+        <label for="exerciseType">Exercise Type:</label>
+        <select id="exerciseType">
+            <option value="practice">Practice</option>
+            <option value="test">Test</option>
+        </select>
+
+        <button onclick="redirectToLink()">Start</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
