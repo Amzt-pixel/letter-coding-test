@@ -67,6 +67,14 @@ p {
     font-weight: bold;
     margin-bottom: 10px;
 }
+.question-header #questionNumber {
+    color: black; /* Keep question number black */
+}
+
+.question-header #runningClock {
+    color: #e74c3c; /* Change timer color to red */
+    font-weight: bold;
+}
 
 .test-title {
     font-weight: bold;
