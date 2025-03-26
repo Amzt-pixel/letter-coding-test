@@ -73,7 +73,7 @@ p {
 .question-header {
     display: flex;
     justify-content: space-between;
-    font-size: 22px; /* Slightly reduced */
+    font-size: 24px; /* Slightly reduced */
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -208,7 +208,7 @@ input {
         font-size: 18px;
     }
     .question-header  {
-        font-size: 16px; /* Reduce size on mobile */
+        font-size: 18px; /* Reduce size on mobile */
     }
     #feedback {
         font-size: 24px;
