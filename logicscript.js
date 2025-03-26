@@ -49,33 +49,35 @@ function generateQuestions(num) {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     for (let i = 0; i < num; i++) {
-        let isLetterToPosition = Math.random() < 0.5; // Randomly choose question type
-        let correctAnswer, questionText;
+        let isLetterToPosition = Math.random() < 0.5; // Randomly select question type
+        let correctAnswer, questionText, options = new Set();
 
         if (isLetterToPosition) {
             // Letter-to-Position question
             let letter = alphabet[Math.floor(Math.random() * 26)];
             correctAnswer = alphabet.indexOf(letter) + 1; // Get position (1-26)
             questionText = `What is the position of '${letter}'?`;
+
+            options.add(correctAnswer);
+            while (options.size < 4) {
+                options.add(Math.floor(Math.random() * 26) + 1); // Random numbers (1-26)
+            }
         } else {
             // Position-to-Letter question
             correctAnswer = Math.floor(Math.random() * 26) + 1; // Random position (1-26)
             questionText = `Which letter is at position ${correctAnswer}?`;
-        }
 
-        // Generate answer choices (one correct + three random incorrect)
-        let options = new Set([correctAnswer]);
-        while (options.size < 4) {
-            let randomOption = isLetterToPosition
-                ? Math.floor(Math.random() * 26) + 1 // Random number (1-26)
-                : alphabet[Math.floor(Math.random() * 26)]; // Random letter (A-Z)
-
-            options.add(randomOption);
+            let correctLetter = alphabet[correctAnswer - 1];
+            options.add(correctLetter);
+            while (options.size < 4) {
+                options.add(alphabet[Math.floor(Math.random() * 26)]); // Random letters (A-Z)
+            }
         }
 
         questions.push({ question: questionText, answer: correctAnswer, options: Array.from(options) });
     }
 }
+
 
 function loadQuestion() {
     let q = questions[currentQuestion];
