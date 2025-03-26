@@ -34,10 +34,6 @@ function startTest() {
         alert("Enter at least Minutes or Seconds for the timer!");
         return;
     }
-    if (minutes === 0 && seconds === 0) {
-            alert("Minutes and Seconds cannot both be zero!");
-            return;
-    }
 
     let minutes = setMinutes === "" ? 0 : parseInt(setMinutes);
     let seconds = setSeconds === "" ? 0 : parseInt(setSeconds);
@@ -45,6 +41,10 @@ function startTest() {
     if (isNaN(minutes) || minutes < 0 || minutes > 30 || isNaN(seconds) || seconds < 0 || seconds > 59) {
         alert("Enter valid values for time!");
         return;
+    }
+    if (minutes === 0 && seconds === 0) {
+            alert("Minutes and Seconds cannot both be zero!");
+            return;
     }
 
     timeLeft = minutes * 60 + seconds;
