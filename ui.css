@@ -48,8 +48,8 @@ p {
 
 .question-text {
     border: 2px solid #000;  
-    padding: 12px; /* Slightly reduced */
-    margin: 8px auto;
+    padding: 16px; /* Slightly reduced */
+    margin: 15px auto;
     border-radius: 8px;
     width: 85%; /* Slightly narrower */
     text-align: center;
