@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 90%;  /* Responsive width */
+    width: 70%;  /* Default width, will be narrower on mobile */
     max-width: 400px;
     margin: 10% auto;
     padding: 30px;
@@ -17,9 +17,9 @@ body {
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 10px;
-    color: #1abc9c;
+    color: #333;
 }
 
 h3 {
@@ -32,12 +32,12 @@ label {
     font-size: 16px;
     display: block;
     margin-top: 15px;
-    color: #444;
+    color: #e74c3c;
     font-weight: bold;
     text-align: left;
 }
 
-/* Style for the dropdown */
+/* Style for input fields */
 select {
     width: 100%;
     padding: 12px;
@@ -47,14 +47,15 @@ select {
     border-radius: 6px;
     background-color: #fff;
     cursor: pointer;
-    color: black; /* Default text color */
+    color: #138d75;  /* Dark green text inside fields */
 }
 
-/* Dark green text inside the dropdown once selected */
+/* Ensure selected option text also appears dark green */
 select option {
-    color: darkgreen;
+    color: black;
 }
 
+/* Focus effect */
 select:focus {
     border-color: #007bff;
     outline: none;
@@ -82,29 +83,13 @@ button:hover {
 /* Mobile Adjustments */
 @media (max-width: 480px) {
     .container {
-        width: 95%;
+        width: 85%;  /* Much narrower container */
         padding: 20px;
     }
 
-    h1 {
-        font-size: 22px;
-    }
-
-    h3 {
-        font-size: 18px;
-    }
-
-    label {
-        font-size: 14px;
-    }
-
     select {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    button {
-        font-size: 16px;
-        padding: 12px;
+        width: 80%;  /* Smaller field width */
+        display: block;
+        margin: 5px auto;
     }
 }
