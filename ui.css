@@ -3,7 +3,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #004d49;
+    background-color: #004d99;
 }
 
 .container {
@@ -18,7 +18,7 @@ body {
 
 h1 {
     font-size: 36px; /* Reduced from 42px */
-    color: #4caf50;
+    color: #004d99;
     font-weight: bold;
 }
 h2 {
@@ -89,7 +89,7 @@ button {
     border-radius: 10px;
 }
 
-.start-btn { background-color: #4CAF50; color: white; }
+.start-btn { background-color: #004d99; color: white; }
 .save-btn { background-color: #2196F3; color: white; }
 .next-btn { background-color: #FF9800; color: white; }
 .submit-btn { background-color: #f44336; color: white; }
@@ -193,13 +193,10 @@ input {
     p {
         font-size: 18px;
     }
-    .question-header #questionNumber {
-        font-size: 12px; /* Reduce size on mobile */
+    .question-header  {
+        font-size: 16px; /* Reduce size on mobile */
     }
-
-    .question-header #runningClock {
-        font-size: 12px; /* Reduce size on mobile */
-    }
+    
     button {
         padding: 12px 20px;
         font-size: 18px;
