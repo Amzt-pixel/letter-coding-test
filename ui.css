@@ -128,6 +128,15 @@ input {
     border-radius: 8px;
 }
 
+.answer-input-box {
+    color: #138d75; /* Dark green text */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    width: 100%;
+}
+
+
 .selected {
     font-weight: bold;
     background-color: #004d99 !important;
