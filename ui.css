@@ -104,7 +104,7 @@ button {
 .next-btn { background-color: #004d99; color: white; }
 .submit-btn { background-color: #004d99; color: white; }
 .restart-btn { background-color: #004d99; color: white; }
-.home-btn { background-color: #000000; color: white; }
+.home-btn { background-color: #333; color: white; }
 
 input {
     font-size: 20px; /* Slightly reduced */
@@ -156,11 +156,11 @@ input {
     font-weight: bold;
 }
 #unattempted {
-    color: #000000;
+    color: #333;
     font-weight: bold;
 }
 #timeTaken {
-    color: #00bfff;
+    color: #138d75;
     font-weight: bold;
 }
 
