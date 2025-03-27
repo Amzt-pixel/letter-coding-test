@@ -148,20 +148,20 @@ input {
 
 /* Feedback message colors */
 #score {
-    color: #004d49;
-    font-weight: bold;
+    color: #004d99;
+    
 }
 #wrong {
     color: red;
-    font-weight: bold;
+    
 }
 #unattempted {
     color: #333;
-    font-weight: bold;
+    
 }
 #timeTaken {
     color: #138d75;
-    font-weight: bold;
+    
 }
 
 /* Buttons container for test page */
