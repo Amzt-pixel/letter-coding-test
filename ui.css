@@ -148,7 +148,7 @@ input {
 
 /* Feedback message colors */
 #score {
-    color: #00cc00;
+    color: #004d49;
     font-weight: bold;
 }
 #wrong {
@@ -156,7 +156,7 @@ input {
     font-weight: bold;
 }
 #unattempted {
-    color: #ffcc00;
+    color: #000000;
     font-weight: bold;
 }
 #timeTaken {
