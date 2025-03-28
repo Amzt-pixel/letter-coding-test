@@ -120,14 +120,14 @@ function loadQuestion() {
     document.getElementById("question").innerText = q.question;
     document.getElementById("feedback").innerText = "";
 
-    // Create or reset input field for user answers
+    // Reset input field for new question
     let inputField = document.getElementById("answerInput");
     inputField.value = "";
-    inputField.readOnly = false; // Re-enable input for new question
+    inputField.disabled = false; // Ensure input is enabled for new question
 
-    // Disable 'Next' button until answer is saved
-    document.getElementById("nextButton").disabled = true;
+    document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
+
 
 
 function generateWrongOptions(correct) {
