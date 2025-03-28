@@ -118,22 +118,17 @@ function loadQuestion() {
     let q = questions[currentQuestion];
     document.getElementById("questionNumber").innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
     document.getElementById("question").innerText = q.question;
-    document.getElementById("options").innerHTML = "";
     document.getElementById("feedback").innerText = "";
 
-    let options = [q.answer, ...generateWrongOptions(q.answer)];
-    options.sort(() => Math.random() - 0.5);
+    // Create or reset input field for user answers
+    let inputField = document.getElementById("answerInput");
+    inputField.value = "";
+    inputField.readOnly = false; // Re-enable input for new question
 
-    options.forEach(option => {
-        let btn = document.createElement("button");
-        btn.innerText = option;
-        btn.onclick = () => selectOption(btn, option);
-        document.getElementById("options").appendChild(btn);
-    });
-
-    selectedAnswer = null;
-    document.getElementById("nextButton").disabled = true; // Prevent skipping question
+    // Disable 'Next' button until answer is saved
+    document.getElementById("nextButton").disabled = true;
 }
+
 
 function generateWrongOptions(correct) {
     let options = [];
@@ -149,21 +144,18 @@ function generateWrongOptions(correct) {
 function saveAnswer() {
     let inputField = document.getElementById("answerInput");
     let userAnswer = inputField.value.trim(); // Get user input
-    if (userAnswer === "") return; // Prevent saving empty answers
-
-    attempted++;
-    let correctAnswer = questions[currentQuestion].answer;
     let feedback = document.getElementById("feedback");
 
-    // Convert both answers to numbers for comparison
-    userAnswer = parseInt(userAnswer);
-    if (isNaN(userAnswer)) {
-        feedback.innerText = "Invalid input! Enter a number.";
-        feedback.style.color = "red";
+    if (userAnswer === "") {
+        alert("Please enter an answer before saving!");
         return;
     }
 
-    if (userAnswer === correctAnswer || (Array.isArray(correctAnswer) && correctAnswer.includes(userAnswer))) {
+    attempted++;
+    let correctAnswer = questions[currentQuestion].answer;
+
+    if (parseInt(userAnswer) === correctAnswer || 
+       (Array.isArray(correctAnswer) && correctAnswer.includes(parseInt(userAnswer)))) {
         correctAnswers++;
         feedback.innerText = "Very Good! Your answer is correct!";
         feedback.style.color = "green";
@@ -173,22 +165,11 @@ function saveAnswer() {
         feedback.style.color = "red";
     }
 
-    // Disable input after saving
-    inputField.readOnly = true;
+    inputField.disabled = true; // Prevent further editing after saving
+    document.getElementById("nextButton").disabled = false; // Enable Next button
 
-    // Enable 'Next' button after saving
-    document.getElementById("nextButton").disabled = false;
-
-    // Auto-submit if all questions are answered
-    if (attempted === questions.length) submitTest();
-}
-
-function nextQuestion() {
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        loadQuestion();
-    } else {
-        submitTest();
+    if (attempted === questions.length) {
+        submitTest(); // Auto-submit if all questions are done
     }
 }
 
