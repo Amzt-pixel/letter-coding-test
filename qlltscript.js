@@ -128,6 +128,15 @@ function loadQuestion() {
     document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
 
+function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;  // Move to the next question
+        loadQuestion();  // Load the next question
+    } else {
+        submitTest();  // End test when all questions are completed
+    }
+}
+
 function saveAnswer() {
     let inputField = document.getElementById("answerInput");
     let userAnswer = inputField.value.trim(); // Get user input
