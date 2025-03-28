@@ -3,7 +3,12 @@ function redirectToLink() {
     let exerciseType = document.getElementById("exerciseType").value;
     let questionPattern = document.getElementById("questionPattern").value;
 
-    // Define a lookup table for URLs
+    // Check if any selection is still at the default placeholder
+if (!questionType || !exerciseType || !questionPattern) {
+    alert("Please make selections for all fields before proceeding.");
+    return;
+}
+// Define a lookup table for URLs
     const urlMap = {
         "letter-number": { 
             "practice": { "MCQ": "lnp.html", "InputAnswer": "qlnp.html" },
