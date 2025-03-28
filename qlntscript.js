@@ -57,6 +57,7 @@ function startTest() {
     startTimer();
     loadQuestion();
 }
+
 function startTimer() {
     timerRunning = true;
     timerInterval = setInterval(() => {
@@ -74,8 +75,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
-
 
 function generateQuestions(num, maxInt) {
     questions = [];
@@ -108,39 +107,16 @@ function loadQuestion() {
     let q = questions[currentQuestion];
     document.getElementById("questionNumber").innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
     document.getElementById("question").innerText = q.question;
-    document.getElementById("options").innerHTML = "";
     document.getElementById("feedback").innerText = "";
 
-    let options = [q.answer, ...generateWrongOptions(q.answer)];
-    options.sort(() => Math.random() - 0.5);
+    // Reset input field for new question
+    let inputField = document.getElementById("answerInput");
+    inputField.value = "";
+    inputField.disabled = false; // Ensure input is enabled for new question
 
-    options.forEach(option => {
-        let btn = document.createElement("button");
-        btn.innerText = option;
-        btn.onclick = () => selectOption(btn, option);
-        document.getElementById("options").appendChild(btn);
-    });
-
-    selectedAnswer = null;
     document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
 
-function generateWrongOptions(correct) {
-    let options = [];
-    while (options.length < 3) {
-        let rand = alphabet[Math.floor(Math.random() * 26)];
-        if (!options.includes(rand) && rand !== correct) options.push(rand);
-    }
-    return options;
-}
-
-function selectOption(button, answer) {
-    document.querySelectorAll("#options button").forEach(btn => {
-        btn.classList.remove("selected");
-    });
-    button.classList.add("selected");
-    selectedAnswer = answer;
-}
 
 function nextQuestion() {
     if (currentQuestion < questions.length - 1) {
@@ -152,13 +128,20 @@ function nextQuestion() {
 }
 
 function saveAnswer() {
-    if (selectedAnswer === null) return;
+    let inputField = document.getElementById("answerInput");
+    let userAnswer = inputField.value.trim(); // Get user input
+    let feedback = document.getElementById("feedback");
+
+    if (userAnswer === "") {
+        alert("Please enter an answer before saving!");
+        return;
+    }
 
     attempted++;
     let correctAnswer = questions[currentQuestion].answer;
-    let feedback = document.getElementById("feedback");
 
-    if (selectedAnswer === correctAnswer || (Array.isArray(correctAnswer) && correctAnswer.includes(selectedAnswer))) {
+    if (parseInt(userAnswer) === correctAnswer || 
+       (Array.isArray(correctAnswer) && correctAnswer.includes(parseInt(userAnswer)))) {
         correctAnswers++;
         feedback.innerText = "Very Good! Your answer is correct!";
         feedback.style.color = "green";
@@ -168,13 +151,12 @@ function saveAnswer() {
         feedback.style.color = "red";
     }
 
-    document.querySelectorAll("#options button").forEach(btn => {
-        btn.onclick = null; // Disable answer changes
-    });
+    inputField.disabled = true; // Prevent further editing after saving
+    document.getElementById("nextButton").disabled = false; // Enable Next button
 
-    document.getElementById("nextButton").disabled = false; // Enable 'Next' after saving
-
-    if (attempted === questions.length) submitTest(); // Auto-submit if all answered
+    if (attempted === questions.length) {
+        submitTest(); // Auto-submit if all questions are done
+    }
 }
 
 function submitTest() {
