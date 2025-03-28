@@ -9,20 +9,28 @@
 <body>
 
     <div class="container">
-        <h1>Welcome!!</h1>
+        <h1>Welcome!!!</h1>
         <h2>Fundamentals for Coding-Decoding</h2>
         <h3>Choose Your MCQ</h3>
 
         <label for="questionType">Question Type:</label>
         <select id="questionType">
+            <option value="" disabled selected>Select a question type</option>
             <option value="letter-or-number">Position of Letters </option>
             <option value="letter-number">Distance from Letter</option>
             <option value="letter-letter">Distance between Letters</option>
             
         </select>
+        <label for="questionPattern">Question Format:</label>
+    <select id="questionPattern">
+        <option value="" disabled selected>Select a question format</option>
+        <option value="MCQ">Multiple Choice (MCQ)</option>
+        <option value="InputAnswer">Input Answer(fill in the blank)</option>
+    </select>
 
         <label for="exerciseType">Exercise Type:</label>
         <select id="exerciseType">
+            <option value="" disabled selected>Select an exercise type</option>
             <option value="practice">Practice</option>
             <option value="test">Test</option>
         </select>
