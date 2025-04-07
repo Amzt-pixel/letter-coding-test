@@ -91,10 +91,9 @@ function loadQuestion() {
 
     document.getElementById("nextButton").disabled = true; // Prevent skipping question
 }
-
 function saveAnswer() {
     let inputField = document.getElementById("answerInput");
-    let userAnswer = inputField.value.trim(); // Get user input
+    let userAnswer = inputField.value.trim().toUpperCase(); // Normalize input
     let feedback = document.getElementById("feedback");
 
     if (userAnswer === "") {
@@ -105,8 +104,16 @@ function saveAnswer() {
     attempted++;
     let correctAnswer = questions[currentQuestion].answer;
 
-    if (parseInt(userAnswer) === correctAnswer || 
-       (Array.isArray(correctAnswer) && correctAnswer.includes(parseInt(userAnswer)))) {
+    let isCorrect = false;
+
+    // Compare appropriately based on the type of correctAnswer
+    if (typeof correctAnswer === "number") {
+        isCorrect = parseInt(userAnswer) === correctAnswer;
+    } else if (typeof correctAnswer === "string") {
+        isCorrect = userAnswer === correctAnswer.toUpperCase(); // Case-insensitive
+    }
+
+    if (isCorrect) {
         correctAnswers++;
         feedback.innerText = "Very Good! Your answer is correct!";
         feedback.style.color = "green";
@@ -116,11 +123,11 @@ function saveAnswer() {
         feedback.style.color = "red";
     }
 
-    inputField.disabled = true; // Prevent further editing after saving
-    document.getElementById("nextButton").disabled = false; // Enable Next button
+    inputField.disabled = true;
+    document.getElementById("nextButton").disabled = false;
 
     if (attempted === questions.length) {
-        submitTest(); // Auto-submit if all questions are done
+        submitTest();
     }
 }
 
@@ -132,7 +139,6 @@ function nextQuestion() {
         submitTest();  // If last question, end the test
     }
 }
-
 
 function submitTest() {
     document.getElementById("test").style.display = "none";
