@@ -133,6 +133,46 @@ function nextQuestion() {
 
 function saveAnswer() {
     let inputField = document.getElementById("answerInput");
+    let userAnswer = inputField.value.trim().toUpperCase(); // Normalize input
+    let feedback = document.getElementById("feedback");
+
+    if (userAnswer === "") {
+        alert("Please enter an answer before saving!");
+        return;
+    }
+
+    attempted++;
+    let correctAnswer = questions[currentQuestion].answer;
+
+    let isCorrect = false;
+
+    // Compare appropriately based on the type of correctAnswer
+    if (typeof correctAnswer === "number") {
+        isCorrect = parseInt(userAnswer) === correctAnswer;
+    } else if (typeof correctAnswer === "string") {
+        isCorrect = userAnswer === correctAnswer.toUpperCase(); // Case-insensitive
+    }
+
+    if (isCorrect) {
+        correctAnswers++;
+        feedback.innerText = "Very Good! Your answer is correct!";
+        feedback.style.color = "green";
+    } else {
+        wrongAnswers++;
+        feedback.innerText = `Oops! That was wrong! Correct answer: ${correctAnswer}`;
+        feedback.style.color = "red";
+    }
+
+    inputField.disabled = true;
+    document.getElementById("nextButton").disabled = false;
+
+    if (attempted === questions.length) {
+        submitTest();
+    }
+}
+
+function saveAnswerOrg() {
+    let inputField = document.getElementById("answerInput");
     let userAnswer = inputField.value.trim(); // Get user input
     let feedback = document.getElementById("feedback");
 
