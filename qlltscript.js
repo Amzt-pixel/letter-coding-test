@@ -107,7 +107,7 @@ function generateQuestions(num, maxInt) {
         }
 
         if (Math.abs(finalAnswer) <= maxInt) {
-            questions.push({ question: `${letter1} - ${letter2} = ?`, answer: finalAnswer });
+            questions.push({ question: `${letter2} ➞ ${letter1} = ?`, answer: finalAnswer });
         } else {
             i--; // Ensure only valid questions are generated
         }
